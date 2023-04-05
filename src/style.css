@@ -23,9 +23,18 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
 }
 
 canvas {
   border: 1px solid var(--light-color);
+  margin: 20px auto;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
   margin: 20px auto;
 }

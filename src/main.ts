@@ -1,3 +1,4 @@
+import { getState, getIsInstant, onReset, State, onStartOrStop, tryStop } from './inputs'
 import { RGB } from './theme'
 import { Point, Draw, toMidpoint, randomizer } from './utils'
 
@@ -10,6 +11,8 @@ ctx.strokeStyle = RGB.Foreground
 const width = 800
 const height = 800
 const padding = 20
+const maxRuns = 1000000
+let runs = 0
 
 const vertexPoints = [
   [width / 2, padding],
@@ -19,21 +22,41 @@ const vertexPoints = [
 const getRandomVertex = randomizer(vertexPoints)
 
 const startingPoint: Point = [400, 400] // TODO: make this random
+let cursor = startingPoint
 
-for (const point of vertexPoints) {
-  Draw.dot(ctx, point)
+const setup = () => {
+  runs = 0
+  ctx.clearRect(0, 0, width, height)
+  for (const point of vertexPoints) {
+    Draw.dot(ctx, point)
+  }
+
+  cursor = startingPoint
 }
+
+onReset(() => {
+  setup()
+})
 
 const wait = (time: number) => new Promise(res => setTimeout(res, time))
 
 const run = async () => {
-  let cursor = startingPoint
-  for (let i = 0; i < 1000000; i++) {
+  while (getState() === State.Running && runs < maxRuns) {
     const vertex = getRandomVertex()
     cursor = toMidpoint(cursor, vertex)
     Draw.dot(ctx, cursor)
-    await wait(10)
+
+    if (!getIsInstant()) {
+      await wait(10)
+    }
+    runs++
   }
+
+  tryStop()
 }
 
-run()
+onStartOrStop(state => {
+  if (state === State.Running) {
+    run()
+  }
+})
