@@ -1,6 +1,6 @@
 :root {
   --light-color: rgba(255, 255, 255, 0.87);
-  --dark-color: #242424;
+  --dark-color: rgb(40, 42, 54);
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
