@@ -29,10 +29,3 @@ canvas {
   border: 1px solid var(--light-color);
   margin: 20px auto;
 }
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: var(--light-color);
-    background-color: #ffffff;
-  }
-}
