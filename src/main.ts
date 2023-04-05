@@ -47,7 +47,7 @@ const run = async () => {
     Draw.dot(ctx, cursor)
 
     if (!getIsInstant()) {
-      await wait(10)
+      await wait(1)
     }
     runs++
   }
