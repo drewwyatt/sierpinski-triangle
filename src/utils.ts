@@ -13,7 +13,7 @@ export namespace Draw {
       ctx.fillStyle = options.color
     }
 
-    ctx.fillRect(x, y, 4, 4)
+    ctx.fillRect(x, y, 1, 1)
     ctx.fillStyle = prevStyle
   }
 }
